@@ -1,16 +1,16 @@
-# cloudy
+# Cloudy-云裳心经手法计算器
 
-A new Flutter project.
+本项目是一个基于Flutter的剑网3七秀门派治疗心法云裳心经手法计算器APP。用户可以输入角色属性计算技能效率。
 
-## Getting Started
+## 功能
 
-This project is a starting point for a Flutter application.
+- 输入角色加速等级
+- 计算战斗时间内应有的技能数以判断技能效率等指标
+- 提供优化建议以提高治疗能力
 
-A few resources to get you started if this is your first Flutter project:
+## 贡献
+欢迎提出问题与Pull Request。
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 许可证
+本项目采用MIT许可证。
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
