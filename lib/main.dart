@@ -10,12 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Acceleration Calculator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Acceleration Calculator'),
     );
   }
 }
@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   AccelerationTable table = AccelerationTable(); // 创建加速表对象
   final TextEditingController speedInputController = TextEditingController(); // 创建文本编辑控制器
   late String selectedSkill; // 当前选择的技能
-  late Map<String, dynamic> result; // 计算结果
+  late Map<String, dynamic> result = {}; // 计算结果
 
   void calculate() {
     // 计算方法
@@ -66,8 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: speedInputController, // 输入框控制器
                 keyboardType: TextInputType.number, // 数字输入类型
                 decoration: InputDecoration(
-                  labelText: 'Speed Level',
-                  hintText: 'Enter your speed level',
+                  labelText: '加速等级',
+                  hintText: '输入您角色当前的加速等级',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -77,19 +77,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (newValue) => setState(() {
                   selectedSkill = newValue!; // 更新选定的技能
                 }),
-                items: <String>[
-                  '左旋右转',
-                  '回雪飘摇',
-                  '余寒映日'
-                ].map<DropdownMenuItem<String>>((String value) {
+                items: table.getSkillNames().map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
                 decoration: InputDecoration(
-                  labelText: 'Select Skill',
-                  hintText: 'Choose a skill',
+                  labelText: '技能选择',
+                  hintText: '选择一个技能',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -98,11 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   calculate(); // 计算按钮点击事件
                 },
-                child: Text('Calculate'),
+                child: Text('生成结果'),
               ),
 
               // 根据计算结果显示信息
-              if (result != null) ...[
+              if (result.isNotEmpty) ...[
                 SizedBox(height: 20),
                 if (result.containsKey("error")) ...[
                   Text(
