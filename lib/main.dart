@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({required Key key, this.title}) : super(key: key);
+  MyHomePage({required Key key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -28,10 +28,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController _speedLevelController = TextEditingController();
+  AccelerationTable table = AccelerationTable();
+  final TextEditingController speedInputController = TextEditingController();
+  late String selectedSkill;
+  late Map<String, dynamic> result;
 
   void calculate() {
-    int userSpeedLevel = int.tryParse(speedInputController.text);
+    var userSpeedLevel = int.tryParse(speedInputController.text);
     if (userSpeedLevel == null || userSpeedLevel < 0) {
       setState(() {
         result = {"error": "Please enter a valid speed level"};
@@ -66,11 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: selectedSkill,
-                onChanged: (String newValue) {
-                  setState(() {
-                    selectedSkill = newValue;
-                  });
-                },
+                onChanged: (newValue) => setState(() {
+                    selectedSkill = newValue!;
+                  }),
                 items: <String>[
                   'zuoXuanYouZhuan',
                   'quXianKaiKong',
