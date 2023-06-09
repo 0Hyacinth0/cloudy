@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'acceleration_table.dart';
+import 'acceleration_table.dart'; // 导入加速表
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // 无状态主程序组件
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  // 有状态的主页面组件
   MyHomePage({required Key key, required this.title}) : super(key: key);
   final String title;
 
@@ -28,25 +30,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  AccelerationTable table = AccelerationTable();
-  final TextEditingController speedInputController = TextEditingController();
-  late String selectedSkill;
-  late Map<String, dynamic> result;
+  AccelerationTable table = AccelerationTable(); // 创建加速表对象
+  final TextEditingController speedInputController = TextEditingController(); // 创建文本编辑控制器
+  late String selectedSkill; // 当前选择的技能
+  late Map<String, dynamic> result; // 计算结果
 
   void calculate() {
-    var userSpeedLevel = int.tryParse(speedInputController.text);
+    // 计算方法
+    var userSpeedLevel = int.tryParse(speedInputController.text); // 尝试将文本框中的值转换为整数
     if (userSpeedLevel == null || userSpeedLevel < 0) {
+      // 如果转换失败或值小于0
       setState(() {
-        result = {"error": "Please enter a valid speed level"};
+        result = {"error": "请输入正确的加速等级"}; // 设置结果为错误提示
       });
     } else {
-      result = table.calculate(userSpeedLevel, selectedSkill);
+      result = table.calculate(userSpeedLevel, selectedSkill); // 根据速度等级和技能进行计算
       setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // 构建界面
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -58,8 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
-                controller: speedInputController,
-                keyboardType: TextInputType.number,
+                controller: speedInputController, // 输入框控制器
+                keyboardType: TextInputType.number, // 数字输入类型
                 decoration: InputDecoration(
                   labelText: 'Speed Level',
                   hintText: 'Enter your speed level',
@@ -70,12 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
               DropdownButtonFormField<String>(
                 value: selectedSkill,
                 onChanged: (newValue) => setState(() {
-                    selectedSkill = newValue!;
-                  }),
+                  selectedSkill = newValue!; // 更新选定的技能
+                }),
                 items: <String>[
-                  'zuoXuanYouZhuan',
-                  'quXianKaiKong',
-                  'ruanZhuanJiShi'
+                  '左旋右转',
+                  '回雪飘摇',
+                  '余寒映日'
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -91,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  calculate();
+                  calculate(); // 计算按钮点击事件
                 },
                 child: Text('Calculate'),
               ),
@@ -117,5 +122,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
